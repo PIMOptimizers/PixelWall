@@ -22,6 +22,9 @@ window = Tk()
 window.geometry("1200x800")
 window.configure(bg="#0E2433")
 
+
+
+
 canvas = Canvas(
     window,
     bg="#0E2433",
