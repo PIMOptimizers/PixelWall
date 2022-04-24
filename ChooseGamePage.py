@@ -3,6 +3,7 @@
 # https://github.com/ParthJadhav/Tkinter-Designer
 
 import os
+import tkinter
 
 from pathlib import Path
 
@@ -13,6 +14,12 @@ from tkinter import *
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path("./assets")
+
+# back button function
+def back():
+    window.destroy()
+    os.system("python main.py")
+
 
 
 def redlightgreen():
@@ -36,6 +43,8 @@ window = Tk()
 
 window.geometry("1200x800")
 window.configure(bg = "#0E2433")
+window.title('Pixell Wall by Optimizers')
+window.iconbitmap(r'pw22_EoA_icon.ico')
 
 
 canvas = Canvas(
@@ -119,7 +128,7 @@ button_4 = Button(
     image=button_image_4,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_4 clicked"),
+    command=back,
     relief="flat"
 )
 button_4.place(
@@ -136,5 +145,6 @@ image_3 = canvas.create_image(
     710.0,
     image=image_image_3
 )
+
 window.resizable(False, False)
 window.mainloop()
