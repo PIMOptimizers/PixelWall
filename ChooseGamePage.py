@@ -50,7 +50,7 @@ canvas = Canvas(
 
 canvas.place(x = 0, y = 0)
 image_image_1 = PhotoImage(
-    file=relative_to_assets("image_1.png"))
+    file=relative_to_assets("choosegame-up-pixels.png"))
 image_1 = canvas.create_image(
     603.0,
     95.0,
@@ -58,7 +58,7 @@ image_1 = canvas.create_image(
 )
 
 image_image_2 = PhotoImage(
-    file=relative_to_assets("image_2.png"))
+    file=relative_to_assets("choosegame-down-pixels.png"))
 image_2 = canvas.create_image(
     600.0,
     672.4375,
@@ -66,7 +66,7 @@ image_2 = canvas.create_image(
 )
 
 button_image_1 = PhotoImage(
-    file=relative_to_assets("button_1.png"))
+    file=relative_to_assets("choosegame-redgreen-btn.png"))
 button_1 = Button(
     image=button_image_1,
     borderwidth=0,
@@ -82,7 +82,7 @@ button_1.place(
 )
 
 button_image_2 = PhotoImage(
-    file=relative_to_assets("button_2.png"))
+    file=relative_to_assets("choosegame-spaceinvadors-btn.png"))
 button_2 = Button(
     image=button_image_2,
     borderwidth=0,
@@ -98,7 +98,7 @@ button_2.place(
 )
 
 button_image_3 = PhotoImage(
-    file=relative_to_assets("button_3.png"))
+    file=relative_to_assets("choosegame-snake-btn.png"))
 button_3 = Button(
     image=button_image_3,
     borderwidth=0,
@@ -114,7 +114,7 @@ button_3.place(
 )
 
 button_image_4 = PhotoImage(
-    file=relative_to_assets("button_4.png"))
+    file=relative_to_assets("home-btn.png"))
 button_4 = Button(
     image=button_image_4,
     borderwidth=0,
@@ -130,7 +130,7 @@ button_4.place(
 )
 
 image_image_3 = PhotoImage(
-    file=relative_to_assets("image_3.png"))
+    file=relative_to_assets("info-img.png"))
 image_3 = canvas.create_image(
     52.0,
     710.0,
