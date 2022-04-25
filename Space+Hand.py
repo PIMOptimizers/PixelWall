@@ -1,3 +1,5 @@
+import sys
+
 import cvzone
 import os
 import random
@@ -112,10 +114,15 @@ class Detection(Thread):
 
                 # print(mp_drawing.draw_landmarks())
 
-                if cv2.waitKey(5) & 0xFF == 27:
-                    break
 
-        cap.release()
+
+                if cv2.waitKey(5) & 0xFF == 27:
+                    cap.release()
+                    cv2.destroyAllWindows()
+                    os.system('python ChooseGamePage.py')
+                    sys.exit()
+
+        # cap.release()
 
 
 class Game(Thread):

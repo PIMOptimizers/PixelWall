@@ -1,3 +1,5 @@
+import os
+
 import mediapipe as mp
 import cv2
 import numpy as np
@@ -128,6 +130,7 @@ while True:
     if cv2.waitKey(1) == 27 or isAlive == 0 or winner == 1:
         cv2.destroyAllWindows()
         cap.release()
+        os.system("python ChooseGamePage.py")
         break
 
 frm = cv2.blur(frm, (5, 5))

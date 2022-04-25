@@ -1,4 +1,5 @@
 import math
+import os
 import random
 import cvzone
 import cv2
@@ -127,5 +128,9 @@ while True:
     if key == ord('r'):
         game.gameOver = False
 
-    if key == ord('f'):
-        exit()
+
+    if key == ord('f') or key == 27:
+        # exit()
+        cap.release()
+        cv2.destroyAllWindows()
+        os.system('python ChooseGamePage.py')
