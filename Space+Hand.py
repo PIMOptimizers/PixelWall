@@ -1,6 +1,5 @@
-import pygame
+import cvzone
 import os
-import time
 import random
 import cv2
 import mediapipe as mp
@@ -11,13 +10,14 @@ import pygame
 import os
 import time
 import random
-pygame.font.init()
 
+pygame.font.init()
 
 xGlobal = 0.5
 yGlobal = 0.5
 CoefGlobal = 600.00
 ShootGlobal = 0.5
+score = 0
 
 
 class Detection(Thread):
@@ -63,45 +63,45 @@ class Detection(Thread):
                     mp_pose.POSE_CONNECTIONS,
                     landmark_drawing_spec=mp_drawing_styles.get_default_pose_landmarks_style())
                 # Flip the image horizontally for a selfie-view display.
-                cv2.imshow('MediaPipe Pose', cv2.flip(image, 1))#Responsable affichage du camera
+                cv2.imshow('Detection', cv2.flip(image, 1))  # Responsable affichage du camera
                 # if results.pose_landmarks in np.array(0,1,2,3,4,5,6,7,8,9,10,11,12) :
                 # print(type(results.pose_landmarks[0]))
                 # if mp_pose.PoseLandmark.LEFT_EAR == True :
                 # print(results.pose_landmarks.landmark[0])
 
                 keypoints = []
-                #PositionGlobal = results.pose_landmarks.landmark[0].y
-                #print(type(PositionGlobal))
-                #print(type(results.pose_landmarks.landmark[0].y))
+                # PositionGlobal = results.pose_landmarks.landmark[0].y
+                # print(type(PositionGlobal))
+                # print(type(results.pose_landmarks.landmark[0].y))
                 if results.pose_landmarks:
-                    #if results.pose_landmarks.landmark[0].y < 0.5:
-                        #print("duck")
-                        #print(("%.2f" % results.pose_landmarks.landmark[0].y))
-                        #yGlobal=str(round(results.pose_landmarks.landmark[0].y, 2))
-                        #yGlobal = float(yGlobal) * float(CoefGlobal)
-                        #float(yGlobal)
-                        #print(yGlobal)
-                    #else:
-                        #if results.pose_landmarks.landmark[0].y > 0.7:
-                            #print("%.2f" % results.pose_landmarks.landmark[0].y)
-                            #yGlobal=str(round(results.pose_landmarks.landmark[0].y, 2))
-                            #yGlobal = float(yGlobal) * float(CoefGlobal)
-                            #float(yGlobal)
-                            #print(yGlobal)
+                    # if results.pose_landmarks.landmark[0].y < 0.5:
+                    # print("duck")
+                    # print(("%.2f" % results.pose_landmarks.landmark[0].y))
+                    # yGlobal=str(round(results.pose_landmarks.landmark[0].y, 2))
+                    # yGlobal = float(yGlobal) * float(CoefGlobal)
+                    # float(yGlobal)
+                    # print(yGlobal)
+                    # else:
+                    # if results.pose_landmarks.landmark[0].y > 0.7:
+                    # print("%.2f" % results.pose_landmarks.landmark[0].y)
+                    # yGlobal=str(round(results.pose_landmarks.landmark[0].y, 2))
+                    # yGlobal = float(yGlobal) * float(CoefGlobal)
+                    # float(yGlobal)
+                    # print(yGlobal)
 
-                    #else:
-                            #print(results.pose_landmarks.landmark[0].y)
-                            #print(PositionGlobal)
-                            #print("%.2f" % results.pose_landmarks.landmark[0].y)
-                            #print("Hello")
-                            #print(type(yGlobal))
-                            #yGlobal=str(round(results.pose_landmarks.landmark[0].y, 2))
-                            #float(yGlobal)
-                            #yGlobal = float(yGlobal) * float(CoefGlobal)
-                            #print(yGlobal)
-                    yGlobal=results.pose_landmarks.landmark[0].y
-                    xGlobal=results.pose_landmarks.landmark[0].x
-                    ShootGlobal=results.pose_landmarks.landmark[16].x
+                    # else:
+                    # print(results.pose_landmarks.landmark[0].y)
+                    # print(PositionGlobal)
+                    # print("%.2f" % results.pose_landmarks.landmark[0].y)
+                    # print("Hello")
+                    # print(type(yGlobal))
+                    # yGlobal=str(round(results.pose_landmarks.landmark[0].y, 2))
+                    # float(yGlobal)
+                    # yGlobal = float(yGlobal) * float(CoefGlobal)
+                    # print(yGlobal)
+                    yGlobal = results.pose_landmarks.landmark[0].y
+                    xGlobal = results.pose_landmarks.landmark[0].x
+                    ShootGlobal = results.pose_landmarks.landmark[16].x
                     print(ShootGlobal)
 
                 else:
@@ -117,14 +117,15 @@ class Detection(Thread):
 
         cap.release()
 
+
 class Game(Thread):
     def run(self):
         global xGlobal
         global yGlobal
         global ShootGlobal
-        WIDTH, HEIGHT = 1000, 720
+        WIDTH, HEIGHT = 1200, 720
         WIN = pygame.display.set_mode((WIDTH, HEIGHT))
-        pygame.display.set_caption("Space Shooter Tutorial")
+        pygame.display.set_caption("Space Invaders")
 
         # Load images
         RED_SPACE_SHIP = pygame.image.load(os.path.join("assets", "pixel_ship_red_small.png"))
@@ -278,6 +279,7 @@ class Game(Thread):
 
             player_vel = 5
             laser_vel = 5
+            score = 0
 
             player = Player(300, 630)
 
@@ -291,9 +293,11 @@ class Game(Thread):
                 # draw text
                 lives_label = main_font.render(f"Lives: {lives}", 1, (255, 255, 255))
                 level_label = main_font.render(f"Level: {level}", 1, (255, 255, 255))
+                score_label = main_font.render(f"Score: {score}", 1, (255, 255, 255))
 
                 WIN.blit(lives_label, (10, 10))
                 WIN.blit(level_label, (WIDTH - level_label.get_width() - 10, 10))
+                WIN.blit(score_label, (WIDTH - score_label.get_width() - 10, 50))
 
                 for enemy in enemies:
                     enemy.draw(WIN)
@@ -304,12 +308,16 @@ class Game(Thread):
                     lost_label = lost_font.render("You Lost!!", 1, (255, 255, 255))
                     WIN.blit(lost_label, (WIDTH / 2 - lost_label.get_width() / 2, 350))
 
+                    # score related
+                    score_label = lost_font.render(f"YOU'RE SCORE IS : {score}", 1, (255, 255, 255))
+                    WIN.blit(score_label, (WIDTH / 3 - lost_label.get_width() / 2, 420))
+
                 pygame.display.update()
 
             while run:
                 clock.tick(FPS)
                 redraw_window()
-                #print(player.y)
+                # print(player.y)
 
                 if lives <= 0 or player.health <= 0:
                     lost = True
@@ -323,6 +331,9 @@ class Game(Thread):
 
                 if len(enemies) == 0:
                     level += 1
+                    # score related
+                    score += 2
+                    print("score =", score)
                     wave_length += 5
                     for i in range(wave_length):
                         enemy = Enemy(random.randrange(50, WIDTH - 100), random.randrange(-1500, -100),
@@ -332,18 +343,17 @@ class Game(Thread):
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         quit()
-                #Movement using camera:
-                if xGlobal>0.6:
+                # Movement using camera:
+                if xGlobal > 0.6:
                     player.x -= player_vel
-                if xGlobal<0.4:
+                if xGlobal < 0.4:
                     player.x += player_vel
-                if yGlobal<0.4:
+                if yGlobal < 0.4:
                     player.y -= player_vel
-                if yGlobal>0.6:
+                if yGlobal > 0.6:
                     player.y += player_vel
-                if ShootGlobal>0.3 and ShootGlobal<0.6:
+                if ShootGlobal > 0.3 and ShootGlobal < 0.6:
                     player.shoot()
-
 
                 keys = pygame.key.get_pressed()
                 if keys[pygame.K_a] and player.x - player_vel > 0:  # left
@@ -380,10 +390,18 @@ class Game(Thread):
         def main_menu():
             title_font = pygame.font.SysFont("comicsans", 70)
             run = True
+
             while run:
+                # button related
+
+                # separation here
                 WIN.blit(BG, (0, 0))
-                title_label = title_font.render("Press the mouse to begin...", 1, (255, 255, 255))
-                WIN.blit(title_label, (WIDTH / 2 - title_label.get_width() / 2, 350))
+                title_label = title_font.render("Press the mouse to begin", 1, (255, 255, 255))
+                WIN.blit(title_label, (WIDTH / 2 - title_label.get_width() / 2, 250))
+                title_label2 = title_font.render("move your head to control", 1, (255, 255, 255))
+                WIN.blit(title_label2, (WIDTH / 2.5 - title_label.get_width() / 2.5, 350))
+                title_label3 = title_font.render("the ship and your hand to shoot", 1, (255, 255, 255))
+                WIN.blit(title_label3, (WIDTH / 3.2 - title_label.get_width() / 3.2, 400))
                 pygame.display.update()
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
@@ -394,9 +412,9 @@ class Game(Thread):
 
         main_menu()
 
+
 t1 = Detection()
 t2 = Game()
-
 
 t1.start()
 t2.start()
