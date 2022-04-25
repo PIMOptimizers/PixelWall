@@ -45,7 +45,9 @@ window.geometry("1200x800")
 window.configure(bg = "#0E2433")
 window.title('Pixell Wall by Optimizers')
 window.iconbitmap(r'pw22_EoA_icon.ico')
-
+logo = PhotoImage(file=ASSETS_PATH / "logo.png")
+window.call('wm', 'iconphoto', window._w, logo)
+window.title("Pixel Wall")
 
 canvas = Canvas(
     window,
