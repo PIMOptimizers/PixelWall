@@ -48,20 +48,20 @@ def register():
     else:
         if (cpass == passw):
             if db.users.count_documents({'username': username}) == 0:
-                user = {"username": username, "password": passw, "level": 0, "avatar": 1, "rewards": [], "score": "0"}
+                user = {"username": username, "password": passw, "level": 0, "avatar": "avatar1", "rewards": [], "score": "0"}
                 result = users.insert_one(user)
                 tk.messagebox.showinfo(
-                    "Success!", "your account has benn created")
+                    "Success!", "Your account has benn created")
                 LoginPage()
 
 
             else:
                 tk.messagebox.showerror(
-                    title="data error!", message="username already in use !")
+                    title="Data error!", message="Username already in use !")
                 return
         else:
             tk.messagebox.showerror(
-                title="typing error!", message="password and confirm password should be the same !")
+                title="Typing error!", message="Password and confirm password should be the same !")
             return
 
 

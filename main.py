@@ -1,9 +1,19 @@
 import os
+from pprint import pprint
 from tkinter import *
 from pathlib import Path
+import tkinter.font as font
+
+from pymongo import MongoClient
 import sys
 #Games
 
+# db config
+CONNECTION_STRING = "mongodb+srv://pim:pimpassword@cluster0.5yxrc.mongodb.net/DB-PIM?retryWrites=true&w=majority"
+client = MongoClient(CONNECTION_STRING)
+db = client.dbPim
+pprint(db.list_collection_names())
+users = db.users
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path("./assets")
@@ -14,7 +24,9 @@ def relative_to_assets(path: str) -> Path:
 def showChooseGamePage():
     window.destroy()
     os.system("python ChooseGamePage.py")
-
+def showLoginPage():
+    window.destroy()
+    os.system("python LoginPage.py")
 
 #def showHomePage():
 window = Tk()
@@ -26,6 +38,20 @@ window.iconbitmap(r'pw22_EoA_icon.ico')
 logo = PhotoImage(file=ASSETS_PATH / "logo.png")
 window.call('wm', 'iconphoto', window._w, logo)
 window.title("Pixel Wall")
+
+
+
+
+# file handling
+f = open("username.txt", "r")
+username = f.read()
+f.close()
+print(username)
+
+avatar = db.users.find_one({"username": username})['avatar']
+score = db.users.find_one({"username": username})['score']
+level = db.users.find_one({"username": username})['level']
+
 
 
 
@@ -46,7 +72,6 @@ button_1 = Button(
     image=button_image_1,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_1 clicked"),
     relief="flat"
 )
 button_1.place(
@@ -56,19 +81,11 @@ button_1.place(
     height=86.0
 )
 
-image_image_1 = PhotoImage(
-    file=relative_to_assets("UserNameHome.png"))
-image_1 = canvas.create_image(
-    1064.0,
-    43.0,
-    image=image_image_1
-)
-
 image_image_2 = PhotoImage(
     file=relative_to_assets("HomeScore.png"))
 image_2 = canvas.create_image(
-    103.0,
-    84.0,
+    120.0,
+    110.0,
     image=image_image_2
 )
 
@@ -87,13 +104,44 @@ button_2.place(
     width=303.0,
     height=96.0
 )
+button_image_22 = PhotoImage(
+    file=relative_to_assets(avatar+".png"))
+button_22 = Button(
+    image=button_image_22,
+    borderwidth=0,
+    highlightthickness=0,
+    command=lambda: print("button_2 clicked"),
+    relief="flat"
+)
+button_22.place(
+    x=850.0,
+    y=14.0,
+    width=109.72418212890625,
+    height=99.43751525878906
+)
 
 image_image_3 = PhotoImage(
-    file=relative_to_assets("buttomPixelBlock.png"))
+    file=relative_to_assets("backPixelHome.png"))
 image_3 = canvas.create_image(
     600.0,
-    672.0,
+    420.0,
     image=image_image_3
+)
+canvas.create_text(
+    50.0,
+    30.0,
+    anchor="nw",
+    font=font.Font(family="Fixedsys", size=25),
+    text=str(score),
+    fill="#FFFFFF"
+)
+canvas.create_text(
+    976.0,
+    45.0,
+    anchor="nw",
+    text=username,
+    fill="#FFFFFF",
+    font=font.Font(family="Fixedsys",size=25),
 )
 window.resizable(False, False)
 window.mainloop()

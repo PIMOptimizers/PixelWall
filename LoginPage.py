@@ -9,6 +9,7 @@ from pprint import pprint
 from pymongo import MongoClient
 import tkinter as tk
 import  os
+
 # from tkinter import *
 # Explicit imports to satisfy Flake8
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, messagebox
@@ -41,6 +42,12 @@ def login():
     username = entry_2.get()
     print("username : " + username)
     if  db.users.find_one({"username" :username,"password":passw}) != None:
+
+        # file handling
+        f= open("username.txt","w")
+        f.write(username)
+        f.close()
+
         showMain()
     else:
         tk.messagebox.showinfo(
@@ -104,6 +111,7 @@ button_3.place(
     width=192.0,
     height=24.0
 )
+
 
 entry_image_1 = PhotoImage(
     file=relative_to_assets("entry_1.png"))
