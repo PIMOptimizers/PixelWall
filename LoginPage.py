@@ -9,6 +9,8 @@ from pprint import pprint
 from pymongo import MongoClient
 import tkinter as tk
 import  os
+import tkinter.font as font
+
 
 # from tkinter import *
 # Explicit imports to satisfy Flake8
@@ -123,6 +125,7 @@ entry_bg_1 = canvas.create_image(
 entry_1 = Entry(
     bd=0,
     bg="#FFFFFF",
+    font=font.Font(family="Fixedsys",size=20),
     highlightthickness=0,
     show="*"
 )
@@ -142,6 +145,7 @@ entry_bg_2 = canvas.create_image(
 )
 entry_2 = Entry(
     bd=0,
+    font=font.Font(family="Fixedsys", size=20),
     bg="#FFFFFF",
     highlightthickness=0
 )

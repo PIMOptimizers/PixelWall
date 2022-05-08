@@ -80,8 +80,8 @@ button_1 = Button(
 button_1.place(
     x=387.0,
     y=488.0,
-    width=393.6991882324219,
-    height=86.0
+    width=400,
+    height=90.0
 )
 
 image_image_2 = PhotoImage(
@@ -104,8 +104,8 @@ button_2 = Button(
 button_2.place(
     x=432.0,
     y=325.0,
-    width=303.0,
-    height=96.0
+    width=310.0,
+    height=100.0
 )
 button_image_22 = PhotoImage(
     file=relative_to_assets(avatar))

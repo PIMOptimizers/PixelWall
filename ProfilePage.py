@@ -259,7 +259,7 @@ button_logOut = Button(
 )
 button_logOut.place(
     x=33.0,
-    y=682.0,
+    y=693.0,
     width=80.0,
     height=80.0
 )

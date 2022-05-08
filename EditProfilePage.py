@@ -179,8 +179,8 @@ button_verifP = Button(
 button_verifP.place(
     x=1005.0,
     y=254.0,
-    width=45.0,
-    height=45.0
+    width=47.0,
+    height=47.0
 )
 
 button_image_3 = PhotoImage(
@@ -280,8 +280,8 @@ entry_1.insert(0,username)
 entry_1.place(
     x=561.0,
     y=146.0,
-    width=406.0,
-    height=39.0
+    width=410.0,
+    height=41.0
 )
 
 entry_image_2 = PhotoImage(
@@ -300,8 +300,8 @@ entry_2 = Entry(
 entry_2.place(
     x=561.0,
     y=254.0,
-    width=406.0,
-    height=39.0
+    width=410.0,
+    height=41.0
 )
 
 entry_image_3 = PhotoImage(
@@ -320,8 +320,8 @@ entry_3 = Entry(
 entry_3.place(
     x=561.0,
     y=330.0,
-    width=406.0,
-    height=39.0
+    width=410.0,
+    height=41.0
 )
 
 
@@ -337,8 +337,8 @@ button_8 = Button(
 button_8.place(
     x=549.0,
     y=454.0,
-    width=429.0,
-    height=68.0
+    width=435.0,
+    height=75.0
 )
 window.resizable(False, False)
 window.mainloop()
