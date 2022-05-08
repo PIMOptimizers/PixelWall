@@ -107,6 +107,11 @@ class MainWinBubble(pygame.sprite.Sprite):
                 pop = pygame.transform.scale(pop, (135, 125))
                 self.image = pop
                 screen.blit(pop, (self.rect.x, self.rect.y))
+
+                # sound effect
+                crash_sound = pygame.mixer.Sound("BubblePopResources/WaterDroplet.mp3")
+                pygame.mixer.Sound.play(crash_sound)
+
                 # screen.blit(pop, position)
                 score += 10
                 self.kill()
