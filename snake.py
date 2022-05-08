@@ -5,18 +5,17 @@ import cvzone
 import cv2
 import numpy as np
 from cvzone.HandTrackingModule import HandDetector
-#from cvzone.SelfiSegmentationModule import SelfiSegmentation
 
 cap = cv2.VideoCapture(0)
-#url = "http://192.168.137.133:8080/video"
-#cap = cv2.VideoCapture(url)
+
 # play space
 cap.set(3, 1280)
 cap.set(4, 720)
 
-#segmentor = SelfiSegmentation()
-
 detector = HandDetector(detectionCon=0.8, maxHands=1)
+
+# global g_score
+# g_score = 0
 
 
 class SnakeGameClass:
@@ -40,9 +39,17 @@ class SnakeGameClass:
 
     def update(self, imgMain, currentHead):
 
+        global g_score
+
         if self.gameOver:
             cvzone.putTextRect(imgMain, "GAME OVER", [300, 550], scale=7, thickness=5, offset=20)
-            cvzone.putTextRect(imgMain, f'YOUR SCORE: {self.score}', [300, 400], scale=7, thickness=5, offset=20)
+            cvzone.putTextRect(imgMain, f'YOUR SCORE: {g_score}', [250, 400], scale=7, thickness=5, offset=20)
+
+            # score file thing still trying
+            score_file = open("score_file.txt", "w+")
+            score_file.write(str(g_score))
+            score_file.close()
+
         else:
             px, py = self.previousHead
             cx, cy = currentHead
@@ -64,11 +71,13 @@ class SnakeGameClass:
 
             # Check if food is eaten
             rx, ry = self.foodPoint
-            if rx - self.wFood//2 < cx < rx + self.wFood//2 and ry - self.hFood // 2 < cy < ry + self.hFood // 2:
+            if rx - self.wFood // 2 < cx < rx + self.wFood // 2 and ry - self.hFood // 2 < cy < ry + self.hFood // 2:
                 # print("yummy")
                 self.randomFoodLocation()
                 self.allowedLength += 50
                 self.score += 1
+                # zedt faza hnaa
+                # g_score += 1
                 print(self.score)
 
             # Draw snake
@@ -80,7 +89,7 @@ class SnakeGameClass:
 
             # Draw Food
             imgMain = cvzone.overlayPNG(imgMain, self.imgFood, (rx - self.wFood // 2, ry - self.hFood // 2))
-
+            g_score = self.score
             cvzone.putTextRect(imgMain, f'SCORE: {self.score}', [50, 80], scale=3, thickness=3, offset=10)
 
             # Check for Collision
@@ -88,7 +97,7 @@ class SnakeGameClass:
             pts = pts.reshape((-1, 1, 2))
             cv2.polylines(imgMain, [pts], False, (0, 200, 0), 3)
             minDistance = cv2.pointPolygonTest(pts, (cx, cy), True)
-            #print(minDistance)
+            # print(minDistance)
 
             if -1 <= minDistance <= 1:
                 print("HIT")
@@ -110,9 +119,8 @@ while True:
     success, img = cap.read()
     img = cv2.flip(img, 1)
 
-    #background remover
-    #img = segmentor.removeBG(img, (0, 0, 0))
-
+    # background remover
+    # img = segmentor.removeBG(img, (0, 0, 0))
 
     hands, img = detector.findHands(img, flipType=False)
 
@@ -127,7 +135,6 @@ while True:
     key = cv2.waitKey(1)
     if key == ord('r'):
         game.gameOver = False
-
 
     if key == ord('f') or key == 27:
         # exit()
