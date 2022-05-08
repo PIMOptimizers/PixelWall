@@ -48,7 +48,7 @@ def register():
     else:
         if (cpass == passw):
             if db.users.count_documents({'username': username}) == 0:
-                user = {"username": username, "password": passw, "level": 1, "avatar": "avatar1", "score": 0}
+                user = {"username": username, "password": passw, "level": 1, "avatar": "avatar1.png", "score": 0}
                 result = users.insert_one(user)
                 tk.messagebox.showinfo(
                     "Success!", "Your account has benn created")

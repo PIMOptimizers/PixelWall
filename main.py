@@ -104,7 +104,7 @@ button_2.place(
     height=96.0
 )
 button_image_22 = PhotoImage(
-    file=relative_to_assets(avatar+".png"))
+    file=relative_to_assets(avatar))
 button_22 = Button(
     image=button_image_22,
     borderwidth=0,

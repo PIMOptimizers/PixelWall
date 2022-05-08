@@ -15,6 +15,10 @@ from pymongo import MongoClient
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path("./assets")
 
+def showEditProfilePage():
+    window.destroy()
+    os.system("python EditProfilePage.py")
+
 # db config
 CONNECTION_STRING = "mongodb+srv://pim:pimpassword@cluster0.5yxrc.mongodb.net/DB-PIM?retryWrites=true&w=majority"
 client = MongoClient(CONNECTION_STRING)
@@ -98,6 +102,11 @@ window = Tk()
 
 window.geometry("1200x800")
 window.configure(bg = "#0E2433")
+window.title('Pixell Wall by Optimizers')
+window.iconbitmap(r'pw22_EoA_icon.ico')
+logo = PhotoImage(file=ASSETS_PATH / "logo.png")
+window.call('wm', 'iconphoto', window._w, logo)
+window.title("Pixel Wall")
 
 def back():
     window.destroy()
@@ -124,7 +133,7 @@ image_1 = canvas.create_image(
 )
 
 image_image_2 = PhotoImage(
-    file=relative_to_assets(avatar+".png"))
+    file=relative_to_assets(avatar))
 image_2 = canvas.create_image(
     176.8191146850586,
     180.86346435546875,
@@ -219,7 +228,7 @@ button_2 = Button(
     image=button_image_2,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_2 clicked"),
+    command=showEditProfilePage,
     relief="flat"
 )
 button_2.place(
