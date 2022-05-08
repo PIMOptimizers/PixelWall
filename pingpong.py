@@ -66,7 +66,11 @@ while True:
         gameOver = True
     if gameOver:
         img = imgGameOver
-        cv2.putText(img, str(score[1] + score[0]).zfill(2), (585, 380), cv2.FONT_HERSHEY_COMPLEX, 2.5, (200, 0, 200), 5)
+        cv2.putText(img, str(max(score[1], score[0])).zfill(2), (585, 380), cv2.FONT_HERSHEY_COMPLEX, 2.5, (200, 0, 200), 5)
+        # score file thing still trying
+        score_file = open("score_file.txt", "w+")
+        score_file.write(str(max(score[1], score[0])))
+        score_file.close()
 
     # If game not over move the ball
     else:
