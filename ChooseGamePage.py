@@ -21,7 +21,6 @@ def back():
     os.system("python main.py")
 
 
-
 def redlightgreen():
     window.destroy()
     os.system('python redlightgreen.py')

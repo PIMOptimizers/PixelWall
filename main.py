@@ -3,7 +3,6 @@ from pprint import pprint
 from tkinter import *
 from pathlib import Path
 import tkinter.font as font
-
 from pymongo import MongoClient
 import sys
 #Games
@@ -27,6 +26,9 @@ def showChooseGamePage():
 def showLoginPage():
     window.destroy()
     os.system("python LoginPage.py")
+def showProfilPage():
+    window.destroy()
+    os.system("python ProfilePage.py")
 
 #def showHomePage():
 window = Tk()
@@ -50,9 +52,6 @@ print(username)
 
 avatar = db.users.find_one({"username": username})['avatar']
 score = db.users.find_one({"username": username})['score']
-level = db.users.find_one({"username": username})['level']
-
-
 
 
 canvas = Canvas(
@@ -110,7 +109,7 @@ button_22 = Button(
     image=button_image_22,
     borderwidth=0,
     highlightthickness=0,
-    command=lambda: print("button_2 clicked"),
+    command=showProfilPage,
     relief="flat"
 )
 button_22.place(

@@ -48,7 +48,7 @@ def register():
     else:
         if (cpass == passw):
             if db.users.count_documents({'username': username}) == 0:
-                user = {"username": username, "password": passw, "level": 0, "avatar": "avatar1", "rewards": [], "score": "0"}
+                user = {"username": username, "password": passw, "level": 1, "avatar": "avatar1", "score": 0}
                 result = users.insert_one(user)
                 tk.messagebox.showinfo(
                     "Success!", "Your account has benn created")
@@ -99,19 +99,18 @@ entry_bg_1 = canvas.create_image(
     419.5,
     image=entry_image_1
 )
-
-entry_1 = tk.Entry(
+entry_3 = Entry(
     bd=0,
     bg="#FFFFFF",
-    highlightthickness=0,
-    show="*"
+    highlightthickness=0
 )
-entry_1.place(
+entry_3.place(
     x=550.0,
-    y=399.0,
+    y=261.0,
     width=406.0,
     height=39.0
 )
+
 
 button_image_1 = PhotoImage(
     file=relative_to_assets("register-next-btn.png"))
@@ -167,7 +166,18 @@ entry_2.place(
     width=406.0,
     height=39.0
 )
-
+entry_1 = tk.Entry(
+    bd=0,
+    bg="#FFFFFF",
+    highlightthickness=0,
+    show="*"
+)
+entry_1.place(
+    x=550.0,
+    y=399.0,
+    width=406.0,
+    height=39.0
+)
 entry_image_3 = PhotoImage(
     file=relative_to_assets("register-cpass-entry.png"))
 entry_bg_3 = canvas.create_image(
@@ -175,17 +185,7 @@ entry_bg_3 = canvas.create_image(
     281.5,
     image=entry_image_3
 )
-entry_3 = Entry(
-    bd=0,
-    bg="#FFFFFF",
-    highlightthickness=0
-)
-entry_3.place(
-    x=550.0,
-    y=261.0,
-    width=406.0,
-    height=39.0
-)
+
 window.resizable(False, False)
 
 window.mainloop()
