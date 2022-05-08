@@ -12,6 +12,10 @@ cap = cv2.VideoCapture(0)
 cap.set(3, 1280)
 cap.set(4, 720)
 
+# background
+imgBackground = cv2.imread("./SnakeResources/background.png")
+
+
 detector = HandDetector(detectionCon=0.8, maxHands=1)
 
 # global g_score
@@ -123,6 +127,9 @@ while True:
     # img = segmentor.removeBG(img, (0, 0, 0))
 
     hands, img = detector.findHands(img, flipType=False)
+
+    # Overlaying the background image
+    img = cv2.addWeighted(img, 0.2, imgBackground, 0.8, 0)
 
     if hands:
         lmList = hands[0]['lmList']
