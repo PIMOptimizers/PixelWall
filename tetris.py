@@ -450,6 +450,12 @@ def main(win):
             next_piece = get_shape()
             change_piece = False
             score += add_score(clear_rows(grid, locked_positions))
+
+            # score file thing still trying
+            score_file = open("score_file.txt", "w+")
+            score_file.write(str(score))
+            score_file.close()
+
             fall_speed = fall_speed_real
             down_wait = 0
 
