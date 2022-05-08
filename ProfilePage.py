@@ -8,7 +8,7 @@ from pathlib import Path
 # Explicit imports to satisfy Flake8
 import tkinter.font as font
 from pprint import pprint
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage
+from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, messagebox
 
 from pymongo import MongoClient
 
@@ -18,6 +18,16 @@ ASSETS_PATH = OUTPUT_PATH / Path("./assets")
 def showEditProfilePage():
     window.destroy()
     os.system("python EditProfilePage.py")
+def logOut():
+    res = messagebox.askyesno('prompt', 'Do you want to kill this window?')
+    if res == True:
+        f = open("username.txt", "w")
+        f.close()
+        window.destroy()
+        os.system("python LoginPage.py")
+
+    elif res == False:
+        pass
 
 # db config
 CONNECTION_STRING = "mongodb+srv://pim:pimpassword@cluster0.5yxrc.mongodb.net/DB-PIM?retryWrites=true&w=majority"
@@ -237,5 +247,22 @@ button_2.place(
     width=92.0,
     height=87.0
 )
+#####
+button_logout = PhotoImage(
+    file=relative_to_assets("logoutBtn.png"))
+button_logOut = Button(
+    image=button_logout,
+    borderwidth=0,
+    highlightthickness=0,
+    command=logOut,
+    relief="flat"
+)
+button_logOut.place(
+    x=33.0,
+    y=682.0,
+    width=80.0,
+    height=80.0
+)
+
 window.resizable(False, False)
 window.mainloop()
