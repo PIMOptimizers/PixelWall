@@ -31,6 +31,10 @@ window_size = (VID_CAP.get(cv.CAP_PROP_FRAME_WIDTH), VID_CAP.get(cv.CAP_PROP_FRA
 screen = pygame.display.set_mode(window_size)
 pygame.display.set_caption('Flappy Bird')
 
+# sound effect
+pygame.mixer.music.load('./FlappyBirdResources/FlappyBirdThemeSong.mp3')
+pygame.mixer.music.play(-1)
+
 # Bird and pipe init
 bird_img = pygame.image.load("./FlappyBirdResources/bird_sprite.png")
 bird_img = pygame.transform.scale(bird_img, (bird_img.get_width() / 6, bird_img.get_height() / 6))
@@ -60,6 +64,7 @@ with mp_face_mesh.FaceMesh(
         min_detection_confidence=0.5,
         min_tracking_confidence=0.5) as face_mesh:
     while True:
+
         # Check if game is running
         if not game_is_running:
             text = pygame.font.SysFont("Helvetica Bold.ttf", 64).render('Game over!', True, (99, 245, 255))
@@ -89,8 +94,6 @@ with mp_face_mesh.FaceMesh(
 
         # Get frame
         ret, frame = VID_CAP.read()
-
-
 
         if not ret:
             print("Empty frame, continuing...")
