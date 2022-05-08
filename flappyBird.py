@@ -14,6 +14,18 @@ pygame.init()
 
 # Initialize required elements/environment
 VID_CAP = cv.VideoCapture(0)
+
+# Trying to import background and merge it with the camera
+imgBackground = cv.imread("./FlappyBirdResources/flappy_background.png")
+# Check cap.read
+
+# game over thing
+imgGameOver = pygame.image.load(r'./PingPongResources/gameOver.png')
+
+# Trying to resize the window
+VID_CAP.set(3, 1280)
+VID_CAP.set(4, 720)
+
 window_size = (VID_CAP.get(cv.CAP_PROP_FRAME_WIDTH), VID_CAP.get(cv.CAP_PROP_FRAME_HEIGHT))  # width by height
 # window_size = 1280, 720
 screen = pygame.display.set_mode(window_size)
@@ -54,6 +66,12 @@ with mp_face_mesh.FaceMesh(
             tr = text.get_rect()
             tr.center = (window_size[0] / 2, window_size[1] / 2)
             screen.blit(text, tr)
+
+            # game over thing
+            img = imgGameOver
+            cv.putText(img, str(score).zfill(2), (585, 380), cv.FONT_HERSHEY_COMPLEX, 2.5,
+                        (200, 0, 200), 5)
+
             pygame.display.update()
             pygame.time.wait(2000)
             VID_CAP.release()
@@ -71,6 +89,9 @@ with mp_face_mesh.FaceMesh(
 
         # Get frame
         ret, frame = VID_CAP.read()
+
+
+
         if not ret:
             print("Empty frame, continuing...")
             continue
@@ -94,6 +115,8 @@ with mp_face_mesh.FaceMesh(
             if bird_frame.bottom > window_size[1]:
                 bird_frame.y = window_size[1] - bird_frame.height
 
+        # A background thing
+        frame = cv.addWeighted(frame, 0.2, imgBackground, 0.8, 0)
         # Mirror frame, swap axes because opencv != pygame
         frame = cv.flip(frame, 1).swapaxes(0, 1)
 
@@ -106,6 +129,7 @@ with mp_face_mesh.FaceMesh(
             pipe_frames.popleft()
 
         # Update screen
+        # opencv frame in pygame screen
         pygame.surfarray.blit_array(screen, frame)
         screen.blit(bird_img, bird_frame)
         checker = True
