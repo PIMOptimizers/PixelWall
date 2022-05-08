@@ -9,17 +9,41 @@ from pathlib import Path
 
 # from tkinter import *
 # Explicit imports to satisfy Flake8
+from pprint import pprint
 from tkinter import *
+
+# db config
+from pymongo import MongoClient
+
+CONNECTION_STRING = "mongodb+srv://pim:pimpassword@cluster0.5yxrc.mongodb.net/DB-PIM?retryWrites=true&w=majority"
+client = MongoClient(CONNECTION_STRING)
+db = client.dbPim
+pprint(db.list_collection_names())
+users = db.users
+# file handling
+f = open("username.txt", "r")
+username = f.read()
+f.close()
+print(username)
 
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path("./assets")
 
+if os.stat('score_file.txt').st_size != 0:
+    score_file = open("score_file.txt", "r")
+    score = score_file.read()
+    print(score)
+    score_file.close()
+    db.users.update_one({"username": username}, {"$inc": {"score": int(score)}})
+    f = open("score_file.txt", "w")
+    f.close()
+
+
 # back button function
 def back():
     window.destroy()
     os.system("python main.py")
-
 
 
 def redlightgreen():
