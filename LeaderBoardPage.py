@@ -102,7 +102,7 @@ tree = ttk.Treeview(window, columns=columns, show='',height=10)
 
 tree.column('rank',width=43,anchor='center')
 tree.column('score',width=100,anchor='center')
-tree.column('username',width=805,anchor='center')
+tree.column('username',width=803,anchor='center')
 
 # add data to the treeview
 for contact in  List:
@@ -116,8 +116,8 @@ tree.configure(yscroll=scrollbar.set)
 
 scrollbar.place(x=1070, y=131, height=458)
 tree.place(
-    x=136,
-    y=131
+    x=138,
+    y=130
 )
 window.resizable(False, False)
 window.mainloop()
