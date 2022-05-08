@@ -29,6 +29,9 @@ def showLoginPage():
 def showProfilPage():
     window.destroy()
     os.system("python ProfilePage.py")
+def showLeaderBoardPage():
+    window.destroy()
+    os.system("python LeaderBoardPage.py")
 
 #def showHomePage():
 window = Tk()
@@ -70,6 +73,7 @@ button_image_1 = PhotoImage(
 button_1 = Button(
     image=button_image_1,
     borderwidth=0,
+    command=showLeaderBoardPage,
     highlightthickness=0,
     relief="flat"
 )

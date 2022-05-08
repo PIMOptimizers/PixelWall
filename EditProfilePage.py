@@ -93,17 +93,17 @@ def updateProfile():
     newUsername = entry_1.get()
     newpass = entry_3.get()
     global newAvatar
-    if newUsername!= username:
+    if (disabled == "normal"):
+        db.users.update_one({"username": username}, {"$set": {"password": newpass}})
+    db.users.update_one({"username": username}, {"$set": {"avatar": newAvatar}})
+    if (newUsername!= username):
         if db.users.count_documents({'username': newUsername}) != 0:
             tk.messagebox.showerror(
                 title="Data error!", message="Username already in use !")
             return
         else:
             db.users.update_one({"username": username}, {"$set": {"username": newUsername}})
-    if (disabled == "normal"):
 
-        db.users.update_one({"username": username}, {"$set": {"password": newpass}})
-    db.users.update_one({"username": username}, {"$set": {"avatar": newAvatar}})
     # file handling
     f = open("username.txt", "w")
     f.write(newUsername)

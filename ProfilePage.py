@@ -19,7 +19,7 @@ def showEditProfilePage():
     window.destroy()
     os.system("python EditProfilePage.py")
 def logOut():
-    res = messagebox.askyesno('prompt', 'Do you want to kill this window?')
+    res = messagebox.askyesno('Warning', 'Are you sure you want to logout? \n back to grown ups life :(')
     if res == True:
         f = open("username.txt", "w")
         f.close()
