@@ -19,7 +19,9 @@ background = pygame.image.load('./BubblePopResources/background.png').convert_al
 background = pygame.transform.scale(background, (width, height))
 clock = pygame.time.Clock()
 global bubblesLeft
-bubblesLeft = 10
+bubblesLeft = 5
+global game_over2
+game_over2 = False
 
 class IntroBubble(pygame.sprite.Sprite):
     def __init__(self, bubble, x, y, speed):
@@ -70,6 +72,13 @@ def intro_window(background):
         start_text = font.render('Enter Any Key To Start The Game', True, (0, 255, 0), None)
         screen.blit(start_text, (width // 3 - 90, height // 3))
 
+        # Help indication
+        start_text = font.render('Pop the bubbles with your index finger', True, (0, 255, 0), None)
+        screen.blit(start_text, (width // 3 - 120, height // 2 + 70))
+
+        start_text = font.render('__ HAVE FUN __', True, (0, 255, 0), None)
+        screen.blit(start_text, (width // 3 + 30, height // 2 + 250))
+
         IntroBubbleSprite.update()
 
         pygame.display.flip()
@@ -94,6 +103,11 @@ class MainWinBubble(pygame.sprite.Sprite):
             self.kill()
             global bubblesLeft
             bubblesLeft -= 1
+            global game_over2
+            if bubblesLeft == 0:
+                game_over2 = True
+
+
             print(bubblesLeft)
 
 
@@ -107,6 +121,11 @@ class MainWinBubble(pygame.sprite.Sprite):
                 pop = pygame.transform.scale(pop, (135, 125))
                 self.image = pop
                 screen.blit(pop, (self.rect.x, self.rect.y))
+
+                # sound effect
+                crash_sound = pygame.mixer.Sound("BubblePopResources/WaterDroplet.mp3")
+                pygame.mixer.Sound.play(crash_sound)
+
                 # screen.blit(pop, position)
                 score += 10
                 self.kill()
@@ -153,6 +172,7 @@ def main_window(background):
     score = 0
     game_over = False
 
+
     all_bubble_list = pygame.sprite.Group()
     all_sprites = pygame.sprite.Group()
     MainWinBubble.containers = all_sprites, all_bubble_list
@@ -162,6 +182,7 @@ def main_window(background):
     cap = cv2.VideoCapture(0)
 
     while not game_over:
+        game_over = game_over2
         for event in pygame.event.get():
             if event.dict.get('key') == 27:
                 game_over = True
@@ -178,7 +199,13 @@ def main_window(background):
         lives_text = font.render(f'Lives: {bubblesLeft}', True, (0, 255, 255), None)
         screen.blit(lives_text, (800, 10))
 
+        # score file thing still trying
+        score_file = open("score_file.txt", "w+")
+        score_file.write(str(score))
+        score_file.close()
+
         if not game_over:
+            game_over = game_over2
             for bubble in all_bubble_list:
                 score = bubble.update(score, position)
             for bubble in all_bubble_list:
@@ -186,6 +213,7 @@ def main_window(background):
                 bubble.collide(all_bubble_list)
                 all_bubble_list.add(bubble)
         else:
+
             all_sprites.clear(screen, background)
             all_sprites.update(score)
 
