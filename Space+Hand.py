@@ -20,6 +20,7 @@ yGlobal = 0.5
 CoefGlobal = 600.00
 ShootGlobal = 0.5
 score = 0
+globalScore = 0
 
 
 class Detection(Thread):
@@ -130,6 +131,8 @@ class Game(Thread):
         global xGlobal
         global yGlobal
         global ShootGlobal
+        global globalScore
+        globalScore = 0
         WIDTH, HEIGHT = 1200, 720
         WIN = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption("Space Invaders")
@@ -193,8 +196,14 @@ class Game(Thread):
                     laser.move(vel)
                     if laser.off_screen(HEIGHT):
                         self.lasers.remove(laser)
+
                     elif laser.collision(obj):
+                        global globalScore
+                        # YOOOO
+                        globalScore += 2
+                        print(globalScore)
                         obj.health -= 10
+
                         self.lasers.remove(laser)
 
             def cooldown(self):
@@ -233,6 +242,12 @@ class Game(Thread):
                         for obj in objs:
                             if laser.collision(obj):
                                 objs.remove(obj)
+                                global globalScore
+
+                                globalScore = globalScore + 1
+                                #print(globalScore)
+
+
                                 if laser in self.lasers:
                                     self.lasers.remove(laser)
 
@@ -325,6 +340,7 @@ class Game(Thread):
                 clock.tick(FPS)
                 redraw_window()
                 # print(player.y)
+                score = globalScore
 
                 if lives <= 0 or player.health <= 0:
                     lost = True
@@ -339,8 +355,12 @@ class Game(Thread):
                 if len(enemies) == 0:
                     level += 1
                     # score related
-                    score += 2
+                    ##globalScore += 10
+
+                    print(score)
+                    #globalScore = score
                     print("score =", score)
+
                     wave_length += 5
                     for i in range(wave_length):
                         enemy = Enemy(random.randrange(50, WIDTH - 100), random.randrange(-1500, -100),
@@ -351,14 +371,29 @@ class Game(Thread):
                     if event.type == pygame.QUIT:
                         quit()
                 # Movement using camera:
-                if xGlobal > 0.6:
-                    player.x -= player_vel
-                if xGlobal < 0.4:
+                print(player.y)
+                if (player.x == 0):
                     player.x += player_vel
-                if yGlobal < 0.4:
+                if (player.x == 1100):
+                    player.x -= player_vel
+                if (player.y == 615):
                     player.y -= player_vel
-                if yGlobal > 0.6:
+                if (player.y == 0):
                     player.y += player_vel
+                if xGlobal > 0.6 :
+                    if (player.x <= 1095) and (player.x >= 5):
+                        player.x -= player_vel
+                if xGlobal < 0.4 and player.x :
+                    if (player.x <= 1095) and (player.x >=5):
+                        player.x += player_vel
+
+
+                if yGlobal < 0.4:
+                    if (player.x <= 610) and (player.x >= 5):
+                        player.y -= player_vel
+                if yGlobal > 0.6:
+                    if (player.x <= 1095) and (player.x >= 5):
+                        player.y += player_vel
                 if ShootGlobal > 0.3 and ShootGlobal < 0.6:
                     player.shoot()
 
@@ -387,7 +422,13 @@ class Game(Thread):
 
                     if collide(enemy, player):
                         player.health -= 10
+
+                        ##globalScore += 2
                         enemies.remove(enemy)
+
+                        #print(score)
+                        #globalScore = score
+
                     elif enemy.y + enemy.get_height() > HEIGHT:
                         lives -= 1
                         enemies.remove(enemy)
