@@ -143,7 +143,8 @@ button_1 = Button(
     borderwidth=0,
     highlightthickness=0,
     command=back,
-    relief="flat"
+    relief="flat",
+    activebackground='#0E2433'
 )
 button_1.place(
     x=1100.0,
@@ -159,7 +160,8 @@ button_2 = Button(
     borderwidth=0,
     highlightthickness=0,
     command=setAvatar2,
-    relief="flat"
+    relief="flat",
+    activebackground='#0E2433'
 )
 button_2.place(
     x=300.0,
@@ -174,7 +176,8 @@ button_verifP = Button(
     borderwidth=0,
     highlightthickness=0,
     command=verifPass,
-    relief="flat"
+    relief="flat",
+    activebackground='#0E2433'
 )
 button_verifP.place(
     x=1005.0,
@@ -190,7 +193,8 @@ button_3 = Button(
     borderwidth=0,
     highlightthickness=0,
     command=setAvatar1,
-    relief="flat"
+    relief="flat",
+    activebackground='#0E2433'
 )
 button_3.place(
     x=120.0,
@@ -206,7 +210,8 @@ button_4 = Button(
     borderwidth=0,
     highlightthickness=0,
     command=setAvatar3,
-    relief="flat"
+    relief="flat",
+    activebackground='#0E2433'
 )
 button_4.place(
     x=120.0,
@@ -222,7 +227,8 @@ button_5 = Button(
     borderwidth=0,
     highlightthickness=0,
     command=setAvatar4,
-    relief="flat"
+    relief="flat",
+    activebackground='#0E2433'
 )
 button_5.place(
     x=300.0,
@@ -238,7 +244,8 @@ button_6 = Button(
     borderwidth=0,
     highlightthickness=0,
     command=setAvatar5,
-    relief="flat"
+    relief="flat",
+    activebackground='#0E2433'
 )
 button_6.place(
     x=120.0,
@@ -254,7 +261,8 @@ button_7 = Button(
     borderwidth=0,
     highlightthickness=0,
     command=setAvatar6,
-    relief="flat"
+    relief="flat",
+    activebackground='#0E2433'
 )
 button_7.place(
     x=300.0,
@@ -295,6 +303,7 @@ entry_2 = Entry(
     bd=0,
     bg="#FFFFFF",
     highlightthickness=0,
+    show="*",
     font=font.Font(family="Fixedsys",size=20)
 )
 entry_2.place(
@@ -314,6 +323,8 @@ entry_bg_3 = canvas.create_image(
 entry_3 = Entry(
     bd=0,
     bg="#FFFFFF",
+    show="*",
+    font=font.Font(family="Fixedsys",size=20),
     highlightthickness=0
 )
 
@@ -324,7 +335,7 @@ entry_3.place(
     height=41.0
 )
 
-
+entry_3.config(state=disabled)
 button_image_8 = PhotoImage(
     file=relative_to_assets("savechangesBtn.png"))
 button_8 = Button(
@@ -332,7 +343,8 @@ button_8 = Button(
     borderwidth=0,
     highlightthickness=0,
     command=updateProfile,
-    relief="flat"
+    relief="flat",
+    activebackground='#0E2433'
 )
 button_8.place(
     x=549.0,
@@ -340,5 +352,6 @@ button_8.place(
     width=435.0,
     height=75.0
 )
+entry_1.focus()
 window.resizable(False, False)
 window.mainloop()

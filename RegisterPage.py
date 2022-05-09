@@ -100,19 +100,6 @@ entry_bg_1 = canvas.create_image(
     419.5,
     image=entry_image_1
 )
-entry_3 = Entry(
-    bd=0,
-    bg="#FFFFFF",
-    font=font.Font(family="Fixedsys", size=20),
-    highlightthickness=0
-)
-entry_3.place(
-    x=550.0,
-    y=261.0,
-    width=406.0,
-    height=39.0
-)
-
 
 button_image_1 = PhotoImage(
     file=relative_to_assets("register-next-btn.png"))
@@ -145,6 +132,18 @@ button_3.place(
     y=582.0,
     width=120.0,
     height=24.0
+)
+entry_3 = Entry(
+    bd=0,
+    bg="#FFFFFF",
+    font=font.Font(family="Fixedsys", size=20),
+    highlightthickness=0
+)
+entry_3.place(
+    x=550.0,
+    y=261.0,
+    width=406.0,
+    height=39.0
 )
 
 entry_image_2 = PhotoImage(
@@ -189,7 +188,7 @@ entry_bg_3 = canvas.create_image(
     281.5,
     image=entry_image_3
 )
-
+entry_3.focus()
 window.resizable(False, False)
 
 window.mainloop()

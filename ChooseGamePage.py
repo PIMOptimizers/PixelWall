@@ -38,8 +38,26 @@ if os.stat('score_file.txt').st_size != 0:
     db.users.update_one({"username": username}, {"$inc": {"score": int(score)}})
     f = open("score_file.txt", "w")
     f.close()
-
-
+    totalScore=db.users.find_one({"username": username})['score']
+    print(totalScore)
+    if (totalScore >= 200 and (totalScore-int(score))<= 200):
+        os.system("python LevelUpPage.py")
+        db.users.update_one({"username": username}, {"$set": {"level": 2}})
+    elif (totalScore >= 600 and (totalScore-int(score))<= 600):
+        os.system("python LevelUpPage.py")
+        db.users.update_one({"username": username}, {"$set": {"level": 3}})
+    elif (totalScore >= 1100 and (totalScore-int(score))<= 1100):
+        os.system("python LevelUpPage.py")
+        db.users.update_one({"username": username}, {"$set": {"level": 4}})
+    elif (totalScore >= 2000 and (totalScore-int(score))<= 2000):
+        os.system("python LevelUpPage.py")
+        db.users.update_one({"username": username}, {"$set": {"level": 5}})
+    elif (totalScore >= 3000 and (totalScore-int(score))<= 3000):
+        os.system("python LevelUpPage.py")
+        db.users.update_one({"username": username}, {"$set": {"level": 6}})
+    elif (totalScore >= 5000 and (totalScore-int(score))<= 5000):
+        os.system("python LevelUpPage.py")
+        db.users.update_one({"username": username}, {"$set": {"level": 7}})
 # back button function
 def back():
     window.destroy()

@@ -112,11 +112,11 @@ window = Tk()
 
 window.geometry("1200x800")
 window.configure(bg = "#0E2433")
-window.title('Pixell Wall by Optimizers')
 window.iconbitmap(r'pw22_EoA_icon.ico')
 logo = PhotoImage(file=ASSETS_PATH / "logo.png")
 window.call('wm', 'iconphoto', window._w, logo)
 window.title("Pixel Wall")
+
 
 def back():
     window.destroy()
@@ -239,7 +239,8 @@ button_2 = Button(
     borderwidth=0,
     highlightthickness=0,
     command=showEditProfilePage,
-    relief="flat"
+    relief="flat",
+    activebackground='#0E2433'
 )
 button_2.place(
     x=1071.0,
@@ -247,7 +248,7 @@ button_2.place(
     width=92.0,
     height=87.0
 )
-#####
+
 button_logout = PhotoImage(
     file=relative_to_assets("logoutBtn.png"))
 button_logOut = Button(

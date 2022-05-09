@@ -75,13 +75,14 @@ button_1 = Button(
     borderwidth=0,
     command=showLeaderBoardPage,
     highlightthickness=0,
-    relief="flat"
+    relief="flat",
+    activebackground='#0E2433'
 )
 button_1.place(
     x=387.0,
     y=488.0,
     width=400,
-    height=90.0
+    height=87.0
 )
 
 image_image_2 = PhotoImage(
@@ -99,13 +100,14 @@ button_2 = Button(
     borderwidth=0,
     highlightthickness=0,
     command=showChooseGamePage,
-    relief="flat"
+    relief="flat",
+    activebackground='#0E2433'
 )
 button_2.place(
     x=432.0,
     y=325.0,
     width=310.0,
-    height=100.0
+    height=97.0
 )
 button_image_22 = PhotoImage(
     file=relative_to_assets(avatar))
@@ -114,7 +116,8 @@ button_22 = Button(
     borderwidth=0,
     highlightthickness=0,
     command=showProfilPage,
-    relief="flat"
+    relief="flat",
+    activebackground='#0E2433'
 )
 button_22.place(
     x=850.0,

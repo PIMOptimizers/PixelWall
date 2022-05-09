@@ -115,26 +115,6 @@ button_3.place(
 )
 
 
-entry_image_1 = PhotoImage(
-    file=relative_to_assets("entry_1.png"))
-entry_bg_1 = canvas.create_image(
-    753.0,
-    408.5,
-    image=entry_image_1
-)
-entry_1 = Entry(
-    bd=0,
-    bg="#FFFFFF",
-    font=font.Font(family="Fixedsys",size=20),
-    highlightthickness=0,
-    show="*"
-)
-entry_1.place(
-    x=550.0,
-    y=388.0,
-    width=406.0,
-    height=39.0
-)
 
 entry_image_2 = PhotoImage(
     file=relative_to_assets("entry_2.png"))
@@ -155,5 +135,27 @@ entry_2.place(
     width=406.0,
     height=39.0
 )
+entry_image_1 = PhotoImage(
+    file=relative_to_assets("entry_1.png"))
+entry_bg_1 = canvas.create_image(
+    753.0,
+    408.5,
+    image=entry_image_1
+)
+entry_1 = Entry(
+    bd=0,
+    bg="#FFFFFF",
+    font=font.Font(family="Fixedsys",size=20),
+    highlightthickness=0,
+    show="*"
+)
+entry_1.place(
+    x=550.0,
+    y=388.0,
+    width=406.0,
+    height=39.0
+)
+entry_2.focus()
+
 window.resizable(False, False)
 window.mainloop()
