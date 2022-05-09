@@ -1,17 +1,13 @@
 import os
-from pprint import pprint
 from tkinter import *
 from pathlib import Path
 import tkinter.font as font
 from pymongo import MongoClient
-import sys
-#Games
 
 # db config
 CONNECTION_STRING = "mongodb+srv://pim:pimpassword@cluster0.5yxrc.mongodb.net/DB-PIM?retryWrites=true&w=majority"
 client = MongoClient(CONNECTION_STRING)
 db = client.dbPim
-pprint(db.list_collection_names())
 users = db.users
 
 OUTPUT_PATH = Path(__file__).parent
@@ -51,7 +47,6 @@ window.title("Pixel Wall")
 f = open("username.txt", "r")
 username = f.read()
 f.close()
-print(username)
 
 avatar = db.users.find_one({"username": username})['avatar']
 score = db.users.find_one({"username": username})['score']
@@ -75,13 +70,14 @@ button_1 = Button(
     borderwidth=0,
     command=showLeaderBoardPage,
     highlightthickness=0,
-    relief="flat"
+    relief="flat",
+    activebackground='#0E2433'
 )
 button_1.place(
     x=387.0,
     y=488.0,
-    width=393.6991882324219,
-    height=86.0
+    width=400,
+    height=87.0
 )
 
 image_image_2 = PhotoImage(
@@ -99,13 +95,14 @@ button_2 = Button(
     borderwidth=0,
     highlightthickness=0,
     command=showChooseGamePage,
-    relief="flat"
+    relief="flat",
+    activebackground='#0E2433'
 )
 button_2.place(
     x=432.0,
     y=325.0,
-    width=303.0,
-    height=96.0
+    width=310.0,
+    height=97.0
 )
 button_image_22 = PhotoImage(
     file=relative_to_assets(avatar))
@@ -114,7 +111,8 @@ button_22 = Button(
     borderwidth=0,
     highlightthickness=0,
     command=showProfilPage,
-    relief="flat"
+    relief="flat",
+    activebackground='#0E2433'
 )
 button_22.place(
     x=850.0,
@@ -131,7 +129,7 @@ image_3 = canvas.create_image(
     image=image_image_3
 )
 canvas.create_text(
-    50.0,
+    35.0,
     30.0,
     anchor="nw",
     font=font.Font(family="Fixedsys", size=25),

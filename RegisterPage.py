@@ -2,23 +2,20 @@
 # https://github.com/ParthJadhav/Tkinter-Designer
 
 from pathlib import Path
-from pprint import pprint
 from pymongo import MongoClient
 import tkinter as tk
 import  os
+import tkinter.font as font
 # Explicit imports to satisfy Flake8
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, messagebox
-
+from tkinter import Tk, Canvas, Entry, Button, PhotoImage, messagebox
 # db config
 CONNECTION_STRING = "mongodb+srv://pim:pimpassword@cluster0.5yxrc.mongodb.net/DB-PIM?retryWrites=true&w=majority"
 client = MongoClient(CONNECTION_STRING)
 db = client.dbPim
-pprint(db.list_collection_names())
 users = db.users
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path("./assets")
-
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
@@ -27,19 +24,14 @@ def LoginPage():
     window.destroy()
     os.system("python LoginPage.py")
 
-
 cpass = tk.StringVar
 passw = tk.StringVar
 username = tk.StringVar
 
-
 def register():
     cpass = entry_1.get()
-    print("Cpass : " + cpass)
     passw = entry_2.get()
-    print("Pass : " + passw)
     username = entry_3.get()
-    print("username : " + username)
 
     if (passw == "" and cpass == "" and username == ""):
         tk.messagebox.showerror(
@@ -99,18 +91,6 @@ entry_bg_1 = canvas.create_image(
     419.5,
     image=entry_image_1
 )
-entry_3 = Entry(
-    bd=0,
-    bg="#FFFFFF",
-    highlightthickness=0
-)
-entry_3.place(
-    x=550.0,
-    y=261.0,
-    width=406.0,
-    height=39.0
-)
-
 
 button_image_1 = PhotoImage(
     file=relative_to_assets("register-next-btn.png"))
@@ -144,6 +124,18 @@ button_3.place(
     width=120.0,
     height=24.0
 )
+entry_3 = Entry(
+    bd=0,
+    bg="#FFFFFF",
+    font=font.Font(family="Fixedsys", size=20),
+    highlightthickness=0
+)
+entry_3.place(
+    x=550.0,
+    y=261.0,
+    width=406.0,
+    height=39.0
+)
 
 entry_image_2 = PhotoImage(
     file=relative_to_assets("register-pass-entry.png"))
@@ -155,6 +147,7 @@ entry_bg_2 = canvas.create_image(
 
 entry_2 = Entry(
     bd=0,
+    font=font.Font(family="Fixedsys", size=20),
     bg="#FFFFFF",
     highlightthickness=0,
     show="*"
@@ -169,6 +162,7 @@ entry_2.place(
 entry_1 = tk.Entry(
     bd=0,
     bg="#FFFFFF",
+    font=font.Font(family="Fixedsys", size=20),
     highlightthickness=0,
     show="*"
 )
@@ -185,7 +179,7 @@ entry_bg_3 = canvas.create_image(
     281.5,
     image=entry_image_3
 )
-
+entry_3.focus()
 window.resizable(False, False)
 
 window.mainloop()

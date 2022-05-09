@@ -3,11 +3,7 @@
 # https://github.com/ParthJadhav/Tkinter-Designer
 import os
 from pathlib import Path
-
-# from tkinter import *
-# Explicit imports to satisfy Flake8
 import tkinter.font as font
-from pprint import pprint
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, messagebox
 
 from pymongo import MongoClient
@@ -33,13 +29,11 @@ def logOut():
 CONNECTION_STRING = "mongodb+srv://pim:pimpassword@cluster0.5yxrc.mongodb.net/DB-PIM?retryWrites=true&w=majority"
 client = MongoClient(CONNECTION_STRING)
 db = client.dbPim
-pprint(db.list_collection_names())
 users = db.users
 # file handling
 f = open("username.txt", "r")
 username = f.read()
 f.close()
-print(username)
 
 avatar = db.users.find_one({"username": username})['avatar']
 level = db.users.find_one({"username": username})['level']
@@ -101,22 +95,18 @@ elif(level==7):
     reward6 = "reward6.png"
 
 
-
-
-
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
-
 
 window = Tk()
 
 window.geometry("1200x800")
 window.configure(bg = "#0E2433")
-window.title('Pixell Wall by Optimizers')
 window.iconbitmap(r'pw22_EoA_icon.ico')
 logo = PhotoImage(file=ASSETS_PATH / "logo.png")
 window.call('wm', 'iconphoto', window._w, logo)
 window.title("Pixel Wall")
+
 
 def back():
     window.destroy()
@@ -239,7 +229,8 @@ button_2 = Button(
     borderwidth=0,
     highlightthickness=0,
     command=showEditProfilePage,
-    relief="flat"
+    relief="flat",
+    activebackground='#0E2433'
 )
 button_2.place(
     x=1071.0,
@@ -247,7 +238,7 @@ button_2.place(
     width=92.0,
     height=87.0
 )
-#####
+
 button_logout = PhotoImage(
     file=relative_to_assets("logoutBtn.png"))
 button_logOut = Button(
@@ -259,7 +250,7 @@ button_logOut = Button(
 )
 button_logOut.place(
     x=33.0,
-    y=682.0,
+    y=693.0,
     width=80.0,
     height=80.0
 )
