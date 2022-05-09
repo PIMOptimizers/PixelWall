@@ -9,17 +9,41 @@ from pathlib import Path
 
 # from tkinter import *
 # Explicit imports to satisfy Flake8
+from pprint import pprint
 from tkinter import *
+
+# db config
+from pymongo import MongoClient
+
+CONNECTION_STRING = "mongodb+srv://pim:pimpassword@cluster0.5yxrc.mongodb.net/DB-PIM?retryWrites=true&w=majority"
+client = MongoClient(CONNECTION_STRING)
+db = client.dbPim
+pprint(db.list_collection_names())
+users = db.users
+# file handling
+f = open("username.txt", "r")
+username = f.read()
+f.close()
+print(username)
 
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path("./assets")
 
+if os.stat('score_file.txt').st_size != 0:
+    score_file = open("score_file.txt", "r")
+    score = score_file.read()
+    print(score)
+    score_file.close()
+    db.users.update_one({"username": username}, {"$inc": {"score": int(score)}})
+    f = open("score_file.txt", "w")
+    f.close()
+
+
 # back button function
 def back():
     window.destroy()
     os.system("python main.py")
-
 
 
 def redlightgreen():
@@ -45,7 +69,9 @@ window.geometry("1200x800")
 window.configure(bg = "#0E2433")
 window.title('Pixell Wall by Optimizers')
 window.iconbitmap(r'pw22_EoA_icon.ico')
-
+logo = PhotoImage(file=ASSETS_PATH / "logo.png")
+window.call('wm', 'iconphoto', window._w, logo)
+window.title("Pixel Wall")
 
 canvas = Canvas(
     window,
@@ -59,7 +85,7 @@ canvas = Canvas(
 
 canvas.place(x = 0, y = 0)
 image_image_1 = PhotoImage(
-    file=relative_to_assets("image_1.png"))
+    file=relative_to_assets("choosegame-up-pixels.png"))
 image_1 = canvas.create_image(
     603.0,
     95.0,
@@ -67,7 +93,7 @@ image_1 = canvas.create_image(
 )
 
 image_image_2 = PhotoImage(
-    file=relative_to_assets("image_2.png"))
+    file=relative_to_assets("choosegame-down-pixels.png"))
 image_2 = canvas.create_image(
     600.0,
     672.4375,
@@ -75,7 +101,7 @@ image_2 = canvas.create_image(
 )
 
 button_image_1 = PhotoImage(
-    file=relative_to_assets("button_1.png"))
+    file=relative_to_assets("choosegame-redgreen-btn.png"))
 button_1 = Button(
     image=button_image_1,
     borderwidth=0,
@@ -91,7 +117,7 @@ button_1.place(
 )
 
 button_image_2 = PhotoImage(
-    file=relative_to_assets("button_2.png"))
+    file=relative_to_assets("choosegame-spaceinvadors-btn.png"))
 button_2 = Button(
     image=button_image_2,
     borderwidth=0,
@@ -107,7 +133,7 @@ button_2.place(
 )
 
 button_image_3 = PhotoImage(
-    file=relative_to_assets("button_3.png"))
+    file=relative_to_assets("choosegame-snake-btn.png"))
 button_3 = Button(
     image=button_image_3,
     borderwidth=0,
@@ -123,7 +149,7 @@ button_3.place(
 )
 
 button_image_4 = PhotoImage(
-    file=relative_to_assets("button_4.png"))
+    file=relative_to_assets("home-btn.png"))
 button_4 = Button(
     image=button_image_4,
     borderwidth=0,
@@ -139,7 +165,7 @@ button_4.place(
 )
 
 image_image_3 = PhotoImage(
-    file=relative_to_assets("image_3.png"))
+    file=relative_to_assets("info-img.png"))
 image_3 = canvas.create_image(
     52.0,
     710.0,

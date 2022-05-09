@@ -4,7 +4,7 @@ import mediapipe as mp
 import cv2
 import numpy as np
 import time
-from playsound import playsound
+#from playsound import playsound
 
 cap = cv2.VideoCapture(0)
 
@@ -75,7 +75,11 @@ while True:
 
     if inFrame == 1:
         if not (isInit):
+
             # playsound('./RedLightGreenResources/greenLight.mp3')
+
+           # playsound('greenLight.mp3')
+
             currWindow = im1
             startT = time.time()
             endT = startT
@@ -111,7 +115,8 @@ while True:
                     cStart = time.time()
                     cEnd = cStart
                     currWindow = im2
-                    # playsound('./RedLightGreenResources/redLight.mp3')
+
+
                     userSum = calc_sum(res.pose_landmarks.landmark)
 
                 if (cEnd - cStart) <= 3:
