@@ -4,7 +4,7 @@
 
 import os
 import tkinter
-
+from tkinter import  messagebox
 from pathlib import Path
 
 # from tkinter import *
@@ -63,7 +63,46 @@ def back():
     window.destroy()
     os.system("python main.py")
 
+lockFlappy=True
+lockpingpong = True
+lockspace =True
+locktetris=True
 
+ImgFlappy="lockedBtn.png"
+Imgpingpong ="lockedBtn.png"
+Imgspace ="lockedBtn.png"
+Imgtetris="lockedBtn.png"
+
+
+level= db.users.find_one({"username": username})['level']
+print(level)
+if level>=7:
+    lockFlappy = False
+    lockpingpong = False
+    lockspace = False
+    locktetris = False
+    ImgFlappy = "fluppyBtn.png"
+    Imgpingpong = "PingPongBtn.png"
+    Imgspace = "spaceBtn.png"
+    Imgtetris = "TetrisBtn.png"
+elif level>=5:
+    lockFlappy = False
+    lockpingpong = False
+    lockspace = False
+    ImgFlappy = "fluppyBtn.png"
+    Imgpingpong = "PingPongBtn.png"
+    Imgspace = "spaceBtn.png"
+
+elif level>=4:
+    lockFlappy = False
+    lockpingpong = False
+    ImgFlappy = "fluppyBtn.png"
+    Imgpingpong = "PingPongBtn.png"
+
+elif level>=2:
+    lockFlappy = False
+    ImgFlappy = "fluppyBtn.png"
+print(Imgspace,Imgtetris,ImgFlappy,Imgpingpong)
 def redlightgreen():
     window.destroy()
     os.system('python redlightgreen.py')
@@ -73,9 +112,40 @@ def snake():
     os.system('python snake.py')
 
 def spaceinvadors():
+    if lockspace :
+        tkinter.messagebox.showerror(
+            title="Game locked!", message="You should reach level 5 to unlock this game !")
+        return
+    else:
+        window.destroy()
+        os.system('python Space+Hand.py')
+def bubbles():
     window.destroy()
-    os.system('python Space+Hand.py')
-
+    os.system('python bubblePop.py')
+def fluppy():
+    if lockFlappy :
+        tkinter.messagebox.showerror(
+            title="Game locked!", message="You should reach level 2 to unlock this game !")
+        return
+    else:
+        window.destroy()
+        os.system('python flappyBird.py')
+def pingPong():
+    if lockpingpong :
+        tkinter.messagebox.showerror(
+            title="Game locked!", message="You should reach level 4 to unlock this game !")
+        return
+    else:
+        window.destroy()
+        os.system('python pingpong.py')
+def tetris():
+    if locktetris :
+        tkinter.messagebox.showerror(
+            title="Game locked!", message="You should reach level 7 to unlock this game !")
+        return
+    else:
+        window.destroy()
+        os.system('python tetris.py')
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
@@ -103,67 +173,59 @@ canvas = Canvas(
 
 canvas.place(x = 0, y = 0)
 image_image_1 = PhotoImage(
-    file=relative_to_assets("choosegame-up-pixels.png"))
+    file=relative_to_assets("backChooseGamePage.png"))
 image_1 = canvas.create_image(
-    603.0,
-    95.0,
+    606.0001220703125,
+    404.8554439544678,
     image=image_image_1
 )
 
-image_image_2 = PhotoImage(
-    file=relative_to_assets("choosegame-down-pixels.png"))
-image_2 = canvas.create_image(
-    600.0,
-    672.4375,
-    image=image_image_2
-)
-
-button_image_1 = PhotoImage(
-    file=relative_to_assets("choosegame-redgreen-btn.png"))
-button_1 = Button(
-    image=button_image_1,
+button_image_7 = PhotoImage(
+    file=relative_to_assets("RedGreenBtn.png"))
+button_7 = Button(
+    image=button_image_7,
     borderwidth=0,
     highlightthickness=0,
     command=redlightgreen,
     relief="flat"
 )
-button_1.place(
-    x=248.0,
-    y=269.0,
-    width=214.0,
-    height=262.0
+button_7.place(
+    x=603.0,
+    y=121.0,
+    width=202.0,
+    height=260.0
 )
 
-button_image_2 = PhotoImage(
-    file=relative_to_assets("choosegame-spaceinvadors-btn.png"))
-button_2 = Button(
-    image=button_image_2,
+button_image_8 = PhotoImage(
+    file=relative_to_assets(Imgspace))
+button_8 = Button(
+    image=button_image_8,
     borderwidth=0,
     highlightthickness=0,
     command=spaceinvadors,
     relief="flat"
 )
-button_2.place(
-    x=724.0,
-    y=269.0,
-    width=215.0,
-    height=262.0
+button_8.place(
+    x=492.0,
+    y=392.0,
+    width=202.0,
+    height=260.0
 )
 
-button_image_3 = PhotoImage(
-    file=relative_to_assets("choosegame-snake-btn.png"))
-button_3 = Button(
-    image=button_image_3,
+button_image_snake = PhotoImage(
+    file=relative_to_assets("snakeBtn.png"))
+button_snake = Button(
+    image=button_image_snake,
     borderwidth=0,
     highlightthickness=0,
     command=snake,
     relief="flat"
 )
-button_3.place(
-    x=486.0,
-    y=269.0,
-    width=214.0,
-    height=262.0
+button_snake.place(
+    x=382.0,
+    y=126.0,
+    width=202.0,
+    height=260.0
 )
 
 button_image_4 = PhotoImage(
@@ -182,12 +244,68 @@ button_4.place(
     height=80.0
 )
 
-image_image_3 = PhotoImage(
-    file=relative_to_assets("info-img.png"))
-image_3 = canvas.create_image(
-    52.0,
-    710.0,
-    image=image_image_3
+button_image_1 = PhotoImage(
+    file=relative_to_assets("bubblePopBtn.png"))
+button_1 = Button(
+    image=button_image_1,
+    borderwidth=0,
+    highlightthickness=0,
+    command=bubbles,
+    relief="flat"
+)
+button_1.place(
+    x=162.0,
+    y=125.0,
+    width=202.0,
+    height=260.0
+)
+
+button_image_2 = PhotoImage(
+    file=relative_to_assets(Imgpingpong))
+button_2 = Button(
+    image=button_image_2,
+    borderwidth=0,
+    highlightthickness=0,
+    command=pingPong,
+    relief="flat"
+)
+button_2.place(
+    x=267.0,
+    y=392.0,
+    width=202.0,
+    height=260.0
+)
+
+button_image_3 = PhotoImage(
+    file=relative_to_assets(Imgtetris))
+button_3 = Button(
+    image=button_image_3,
+    borderwidth=0,
+    highlightthickness=0,
+    command=tetris,
+    relief="flat"
+)
+button_3.place(
+    x=721.0,
+    y=392.0,
+    width=202.0,
+    height=260.0
+)
+
+button_image_6 = PhotoImage(
+    file=relative_to_assets(ImgFlappy))
+button_6 = Button(
+    image=button_image_6,
+    borderwidth=0,
+    highlightthickness=0,
+    command=fluppy,
+    relief="flat"
+)
+button_6.place(
+    x=829.0,
+    y=126.0,
+    width=202.0,
+    height=260.0
 )
 
 window.resizable(False, False)

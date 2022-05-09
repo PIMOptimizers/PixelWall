@@ -134,7 +134,7 @@ image_3 = canvas.create_image(
     image=image_image_3
 )
 canvas.create_text(
-    50.0,
+    35.0,
     30.0,
     anchor="nw",
     font=font.Font(family="Fixedsys", size=25),

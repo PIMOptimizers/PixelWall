@@ -28,11 +28,9 @@ def LoginPage():
     window.destroy()
     os.system("python LoginPage.py")
 
-
 cpass = tk.StringVar
 passw = tk.StringVar
 username = tk.StringVar
-
 
 def register():
     cpass = entry_1.get()
