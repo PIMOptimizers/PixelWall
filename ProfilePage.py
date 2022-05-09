@@ -3,11 +3,7 @@
 # https://github.com/ParthJadhav/Tkinter-Designer
 import os
 from pathlib import Path
-
-# from tkinter import *
-# Explicit imports to satisfy Flake8
 import tkinter.font as font
-from pprint import pprint
 from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, messagebox
 
 from pymongo import MongoClient
@@ -33,13 +29,11 @@ def logOut():
 CONNECTION_STRING = "mongodb+srv://pim:pimpassword@cluster0.5yxrc.mongodb.net/DB-PIM?retryWrites=true&w=majority"
 client = MongoClient(CONNECTION_STRING)
 db = client.dbPim
-pprint(db.list_collection_names())
 users = db.users
 # file handling
 f = open("username.txt", "r")
 username = f.read()
 f.close()
-print(username)
 
 avatar = db.users.find_one({"username": username})['avatar']
 level = db.users.find_one({"username": username})['level']
@@ -101,12 +95,8 @@ elif(level==7):
     reward6 = "reward6.png"
 
 
-
-
-
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
-
 
 window = Tk()
 

@@ -1,17 +1,13 @@
 import os
-from pprint import pprint
 from tkinter import *
 from pathlib import Path
 import tkinter.font as font
 from pymongo import MongoClient
-import sys
-#Games
 
 # db config
 CONNECTION_STRING = "mongodb+srv://pim:pimpassword@cluster0.5yxrc.mongodb.net/DB-PIM?retryWrites=true&w=majority"
 client = MongoClient(CONNECTION_STRING)
 db = client.dbPim
-pprint(db.list_collection_names())
 users = db.users
 
 OUTPUT_PATH = Path(__file__).parent
@@ -51,7 +47,6 @@ window.title("Pixel Wall")
 f = open("username.txt", "r")
 username = f.read()
 f.close()
-print(username)
 
 avatar = db.users.find_one({"username": username})['avatar']
 score = db.users.find_one({"username": username})['score']

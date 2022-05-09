@@ -2,24 +2,20 @@
 # https://github.com/ParthJadhav/Tkinter-Designer
 
 from pathlib import Path
-from pprint import pprint
 from pymongo import MongoClient
 import tkinter as tk
 import  os
 import tkinter.font as font
 # Explicit imports to satisfy Flake8
-from tkinter import Tk, Canvas, Entry, Text, Button, PhotoImage, messagebox
-
+from tkinter import Tk, Canvas, Entry, Button, PhotoImage, messagebox
 # db config
 CONNECTION_STRING = "mongodb+srv://pim:pimpassword@cluster0.5yxrc.mongodb.net/DB-PIM?retryWrites=true&w=majority"
 client = MongoClient(CONNECTION_STRING)
 db = client.dbPim
-pprint(db.list_collection_names())
 users = db.users
 
 OUTPUT_PATH = Path(__file__).parent
 ASSETS_PATH = OUTPUT_PATH / Path("./assets")
-
 
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
@@ -34,11 +30,8 @@ username = tk.StringVar
 
 def register():
     cpass = entry_1.get()
-    print("Cpass : " + cpass)
     passw = entry_2.get()
-    print("Pass : " + passw)
     username = entry_3.get()
-    print("username : " + username)
 
     if (passw == "" and cpass == "" and username == ""):
         tk.messagebox.showerror(
