@@ -70,6 +70,13 @@ def intro_window(background):
         start_text = font.render('Enter Any Key To Start The Game', True, (0, 255, 0), None)
         screen.blit(start_text, (width // 3 - 90, height // 3))
 
+        # Help indication
+        start_text = font.render('Pop the bubbles with your index finger', True, (0, 255, 0), None)
+        screen.blit(start_text, (width // 3 - 120, height // 2 + 70))
+
+        start_text = font.render('__ HAVE FUN __', True, (0, 255, 0), None)
+        screen.blit(start_text, (width // 3 + 30, height // 2 + 250))
+
         IntroBubbleSprite.update()
 
         pygame.display.flip()
