@@ -49,6 +49,8 @@ class SnakeGameClass:
             cvzone.putTextRect(imgMain, "GAME OVER", [300, 550], scale=7, thickness=5, offset=20)
             cvzone.putTextRect(imgMain, f'YOUR SCORE: {g_score}', [250, 400], scale=7, thickness=5, offset=20)
 
+            cvzone.putTextRect(imgMain, "press R to restart", [100, 100], scale=7, thickness=5, offset=20)
+
             # score file thing still trying
             score_file = open("score_file.txt", "w+")
             score_file.write(str(g_score))
