@@ -10,4 +10,4 @@ To developpe the desktop application we mainly used Pyhton with its diffrent lib
 ####     *MediaPipe
 ####     *Tkinter
 
-[![IMAGE ALT TEXT HERE](https://img.https://www.youtube.com/watch?v=l8M6_HNQdOM&list=LL&index=2&t=14s/0.jpg)](https://www.youtube.com/watch?v=l8M6_HNQdOM&list=LL&index=2&t=14s)
+[Link to promotional video here](https://www.youtube.com/watch?v=l8M6_HNQdOM&list=LL&index=2&t=14s)
